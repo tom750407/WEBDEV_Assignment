@@ -7,11 +7,11 @@ and open the template in the editor.
 <html>
     <head>
 
-        <title>Line Chart</title>
+        <title>Pie Chart</title>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <!--<script type="text/javascript" src="jquery-3.3.1.min.js"></script>-->
-        <script src="Line_Chart.js"></script>
+        <script src="Pie_Chart.js"></script>
     </head>
     <body>
 
@@ -19,15 +19,6 @@ and open the template in the editor.
 
         <div id="chart"></div>
         <form id="formInputs">
-            Select a location
-            <select id="files" onchange="googleChart()">
-                <option value="../files/brislington_no2.xml">Brislington</option>
-                <option value="../files/fishponds_no2.xml">Fishponds</option>
-                <option value="../files/parson_st_no2.xml">Parson Street</option>
-                <option value="../files/rupert_st_no2.xml" selected="selected">Rupert Street</option>
-                <option value="../files/wells_rd_no2.xml">Wells Road</option>
-                <option value="../files/newfoundland_way_no2.xml">Newfoundland Way</option>
-            </select>
             <br/>
             Select a date
             <input id="dates" type="date" min="2014-11-13" max="2017-02-13" value="2015-06-01" onchange="googleChart()"/>

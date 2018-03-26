@@ -15,10 +15,11 @@ and open the template in the editor.
     </head>
     <body>
 
-
-        <div id="chart" style="width: 900px; height: 500px;"></div>
+    <center>
+        <div id="chart"></div>
 
         <form id="formInputs">
+            Select a location
             <select id="files" onchange="googleChart()">
                 <option value="../files/brislington_no2.xml">Brislington</option>
                 <option value="../files/fishponds_no2.xml">Fishponds</option>
@@ -28,6 +29,7 @@ and open the template in the editor.
                 <option value="../files/newfoundland_way_no2.xml">Newfoundland Way</option>
             </select>
             <br/>
+            Select a year
             <select id="dates" onchange="googleChart()">
                 <option value="2014">2014</option>
                 <option value="2015">2015</option>
@@ -36,9 +38,11 @@ and open the template in the editor.
             </select>
             <br/>
             <div>
-                <span id="time"></span> <br/>
+                Select a time
+                <span id="time"></span>
                 <input id="times" type="range" min="0" max ="23.75" value="10" step="0.25" oninput="displayTime()" onchange="displayTime()">
             </div>
         </form>
-    </body>
+    </center>
+</body>
 </html>

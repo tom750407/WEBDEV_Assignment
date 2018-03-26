@@ -10,6 +10,8 @@ and open the template in the editor.
         <title></title>
     </head>
     <body>
+        <form><input type="button" onclick="location.href = 'Line_Chart/Line_Chart.html'" value="Line Chart"/></form>
+        <form><input type="button" onclick="location.href = 'Scatter_Chart/Scatter_Chart.html'" value="Scatter_Chart"/></form>
         <?php
         ?>
     </body>

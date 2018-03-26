@@ -47,6 +47,62 @@ function googleChart() {
     //google maps
     console.log(json);
     var data = new google.visualization.DataTable(json);
+    var dataView = new google.visualization.DataView(data);
+    dataView.setColumns([
+        0, 1,
+        {
+            calc: function (data, row) {
+                var val = data.getValue(row, 1);
+                if (val >= 0 && val <= 67) {
+                    return "#DAF7A6";
+                }
+                if (val >= 68 && val <= 134) {
+                    return "#80FF00";
+                }
+                if (val >= 135 && val <= 200) {
+                    return "#94C800";
+                }
+                if (val >= 201 && val <= 267) {
+                    return "#F3F000";
+                }
+                if (val >= 268 && val <= 334) {
+                    return "#FFC300";
+                }
+                if (val >= 335 && val <= 400) {
+                    return "#F19A00";
+                }
+                if (val >= 401 && val <= 467) {
+                    return "#FF5F5F";
+                }
+                if (val >= 468 && val <= 534) {
+                    return "#FE0404";
+                }
+                if (val >= 535 && val <= 600) {
+                    return "#900C3F";
+                }
+                if (val >= 601) {
+                    return "#BE02E3";
+                }
+                return "000000";
+            },
+            type: 'string',
+            role: 'style'
+        },
+        {
+            calc: function (data, row) {
+                let date = new Date(data.getValue(row, 0));
+                let dateInFormate = (date.getDate() < 10 ? "0" : "") + date.getDate() + "/"
+                        + (date.getMonth() < 10 ? "0" : "") + date.getMonth() + "/"
+                        + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes()
+                        + ":" + date.getSeconds();
+                return dateInFormate + "\nNO2 Value: " + data.getValue(row, 1);
+
+            },
+            type: 'string',
+            role: 'tooltip'
+        }
+    ]);
+
     var options = {
         title: 'Air Quality: ' + location,
         hAxis: {title: 'Date'},
@@ -56,7 +112,7 @@ function googleChart() {
 
     let chart = new google.visualization.ScatterChart(document.getElementById("chart"));
 
-    chart.draw(data, options);
+    chart.draw(dataView, options);
 
 }
 
