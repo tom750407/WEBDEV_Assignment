@@ -44,7 +44,7 @@ function googleChart() {
         return mydate;
     }
 
-    let url = "Pie_Chart.php";
+    let url = "Bar_Chart.php";
 
     //params
     let date = $('#dates').val();
@@ -126,14 +126,10 @@ function googleChart() {
 //    ]);
 
     var options = {
-        title: 'Air Quality:',
-//        pieHole: 0.4,
-//        is3D: true
-
-
+        title: 'Air Quality:'
     };
 
-    let chart = new google.visualization.PieChart(document.getElementById("chart"));
+    let chart = new google.visualization.BarChart(document.getElementById("chart"));
 
     chart.draw(data, options);
 

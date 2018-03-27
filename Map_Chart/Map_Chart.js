@@ -5,7 +5,7 @@
  */
 
 $(document).ready(function () {
-    google.charts.load('current', {packages: ['corechart']});
+    google.charts.load('current', {packages: ['map'], "mapsApiKey": "AIzaSyCowE35iCkaDqWdyz5_7-gjaX8SlU02H2w"});
     google.charts.setOnLoadCallback(googleChart);
 
     displayTime();
@@ -44,7 +44,7 @@ function googleChart() {
         return mydate;
     }
 
-    let url = "Pie_Chart.php";
+    let url = "Map_Chart.php";
 
     //params
     let date = $('#dates').val();
@@ -74,50 +74,9 @@ function googleChart() {
 //        0, 1,
 //        {
 //            calc: function (data, row) {
-//                var val = data.getValue(row, 1);
-//                if (val >= 0 && val <= 67) {
-//                    return "#DAF7A6";
-//                }
-//                if (val >= 68 && val <= 134) {
-//                    return "#80FF00";
-//                }
-//                if (val >= 135 && val <= 200) {
-//                    return "#94C800";
-//                }
-//                if (val >= 201 && val <= 267) {
-//                    return "#F3F000";
-//                }
-//                if (val >= 268 && val <= 334) {
-//                    return "#FFC300";
-//                }
-//                if (val >= 335 && val <= 400) {
-//                    return "#F19A00";
-//                }
-//                if (val >= 401 && val <= 467) {
-//                    return "#FF5F5F";
-//                }
-//                if (val >= 468 && val <= 534) {
-//                    return "#FE0404";
-//                }
-//                if (val >= 535 && val <= 600) {
-//                    return "#900C3F";
-//                }
-//                if (val >= 601) {
-//                    return "#BE02E3";
-//                }
-//                return "000000";
-//            },
-//            type: 'string',
-//            role: 'style'
-//        },
-//        {
-//            calc: function (data, row) {
-//                let date = new Date(data.getValue(row, 0));
-//                let dateInFormate = (date.getDate() < 10 ? "0" : "") + date.getDate() + "/"
-//                        + (date.getMonth() < 10 ? "0" : "") + date.getMonth() + "/"
-//                        + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes()
-//                        + ":" + date.getSeconds();
-//                return dateInFormate + "\nNO2 Value: " + data.getValue(row,1);
+//                let date = document.getElementById("dates");
+//                let time = document.getElementById("times");
+//                return date + " " + time;
 //
 //            },
 //            type: 'string',
@@ -127,15 +86,13 @@ function googleChart() {
 
     var options = {
         title: 'Air Quality:',
-//        pieHole: 0.4,
-//        is3D: true
-
-
+        showTooltip: true,
+        showInfoWindow: true
     };
 
-    let chart = new google.visualization.PieChart(document.getElementById("chart"));
+    let map = new google.visualization.Map(document.getElementById("chart"));
 
-    chart.draw(data, options);
+    map.draw(data, options);
 
 }
 
