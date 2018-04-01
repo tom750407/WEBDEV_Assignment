@@ -28,6 +28,12 @@ Line Chart
 - Custom Tooltip to display date, time and no2 value
 - Colour for different level of no2
 
+Map Chart
+
+Pie Chart
+
+Bar Chart
+
 ### Reference
 https://msdn.microsoft.com/en-us/library/system.xml.xmlreader(v=vs.110).aspx
 http://php.net/manual/en/intro.simplexml.php
