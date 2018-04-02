@@ -1,32 +1,37 @@
 <?php
 
+/*
+  plan
+ *  1) do xpath of:
+ *      current date
+ *  2) create json string and return
+ */
+
 //user input
 $file = $_REQUEST["file"];
 $date = $_REQUEST["date"];
 $time = $_REQUEST["time"];
 
 //test input
-//$file = "files/brislington_no2.xml";
-//$date = "2016";
-//$time="10:00:00";
+//$file = "../files/newfoundland_way_no2.xml";
+//$date = "2015";
+//$time="11:00:00";
+
 echo createJSONString($file, $time, $date);
 
 function createJSONString($inputFilePath, $selectedTime, $selectedDate) {
+    #1) xpath
     $xml = simplexml_load_file($inputFilePath);
     $readingArray = $xml->xpath("//reading[@time='$selectedTime' and contains(@date,'$selectedDate')]");
-//    print_r($resultArr);
 
-//need to sort array
     $rows = array();
     $table = array();
     $table["cols"] = array(
         array("label" => "date", "type" => "date"),
         array("label" => "NO2", "type" => "number"),
-        array("role" => "style", "type" => "string"),
-        array("role" => "tooltip", "type" => "string", "p" => array('html' => true))
     );
-    
-    $colorNumber = 0;
+
+    #2) create json string and return
     foreach ($readingArray as $reading) {
         $temp = array();
         $reading = simplexml_load_string($reading->asXML());
@@ -43,7 +48,7 @@ function createJSONString($inputFilePath, $selectedTime, $selectedDate) {
         $dateFormat .= date("H", $date->format("U")) . ", ";
         $dateFormat .= date("i", $date->format("U")) . ", ";
         $dateFormat .= date("s", $date->format("U")) . ")";
-                
+
         $temp[] = array("v" => $dateFormat); //add date
         $temp[] = array("v" => (int) $no2val); //add no2
         $temp[] = array("v" => selectColor($no2val)); //add colour
@@ -51,41 +56,8 @@ function createJSONString($inputFilePath, $selectedTime, $selectedDate) {
         $rows[] = array("c" => $temp); //add row to new column
     }
     $table["rows"] = $rows;
-    
-    return json_encode($table);
-}
 
-function selectColor($val) {
-    if ($val >= 0 && $val <= 67) {
-        return "#DAF7A6";
-    }
-    if ($val >= 68 && $val <= 134) {
-        return "#80FF00";
-    }
-    if ($val >= 135 && $val <= 200) {
-        return "#94C800";
-    }
-    if ($val >= 201 && $val <= 267) {
-        return "#F3F000";
-    }
-    if ($val >= 268 && $val <= 334) {
-        return "#FFC300";
-    }
-    if ($val >= 335 && $val <= 400) {
-        return "#F19A00";
-    }
-    if ($val >= 401 && $val <= 467) {
-        return "#FF5F5F";
-    }
-    if ($val >= 468 && $val <= 534) {
-        return "#FE0404";
-    }
-    if ($val >= 535 && $val <= 600) {
-        return "#900C3F";
-    }
-    if ($val >= 601) {
-        return "#BE02E3";
-    }
+    return json_encode($table);
 }
 
 ?>

@@ -14,6 +14,7 @@ and open the template in the editor.
         <form><input type="button" onclick="location.href = 'Scatter_Chart/Scatter_Chart.html'" value="Scatter_Chart"/></form>
         <form><input type="button" onclick="location.href = 'Pie_Chart/Pie_Chart.html'" value="Pie_Chart"/></form>
         <form><input type="button" onclick="location.href = 'Bar_Chart/Bar_Chart.html'" value="Bar_Chart"/></form>
+        <form><input type="button" onclick="location.href = 'Map_Chart/Map_Chart.html'" value="Map_Chart"/></form>
 
         <?php
         ?>

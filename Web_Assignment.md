@@ -1,3 +1,5 @@
+Code can be found from [github](https://github.com/tom750407/WEBDEV_Assignment)
+
 # Web ADVANCED TOPICS IN WEB DEVELOPMENT
 Document Object Model (DOM) parsers and Streaming API for XML(StAX))parsers are two programming models use to get and create XML infoset.
 
@@ -17,22 +19,13 @@ If memory was not a concern, DOM parsers would still need traverse the whole tre
 However, XMLReader and simpleXML sometimes can use together, use the Streaming parsers to read the XML document, then convert part of element into DOM to access the data. This can take the benefits from both DOM and Streaming parsers which can get data easier and faster without any memory problems plus improves code readability.
 
 ###  Extending the visualisation
-Scatter Chart
-- User input selection
-  - Location
-  - Year
-  - Time
-- Colour for different level of no2
+Scatter chart require to show the data from a specific station in a specific date, in this project, the user input has made, the year selection, time slider and location selection for users to view the no2 value on any stations and date.
 
-Line Chart
-- Custom Tooltip to display date, time and no2 value
-- Colour for different level of no2
+Line chart require to show the data in 24 period on any stations and date, the colour representation with the costmize tooltip (date + no2 value) has made.
 
-Map Chart
+Pie chart and Bar chart are pretty the same, pie chart is costmize in 3D mode and bar chart has the colour change in the bar to represent different level of no2 value.
 
-Pie Chart
-
-Bar Chart
+Map is made to display the location on the google map.
 
 ### Reference
 https://msdn.microsoft.com/en-us/library/system.xml.xmlreader(v=vs.110).aspx

@@ -4,14 +4,17 @@
  * and open the template in the editor.
  */
 
+/*
+ * Task is to showing levels in any 24 hour period on any day (user selectable) for any of the six stations
+ * Code is similar to other chart with some chart costume like changing colour or costmize tooltip
+ */
+
+//when document is ready load google chart api and draw the graph
 $(document).ready(function () {
     google.charts.load('current', {packages: ['corechart']});
     google.charts.setOnLoadCallback(googleChart);
-
     displayTime();
 });
-
-
 
 function displayTime() {
     let slider = document.getElementById("times");
@@ -22,14 +25,15 @@ function displayTime() {
     if (minutes === 0) {
         minutes = "00";
     }
+
     //display initial output
     output.innerHTML = (slider.value < 10 ? "0" : "") + Math.floor(slider.value) + ":" + minutes + ":00";
     googleChart();
 }
 
 function googleChart() {
+    //formate date to DD/MM/YYYY e.g.01/06/2015
     function dateFormat(date) {
-        //formate date to DD/MM/YYYY
         let day = date.getDate();
         day = (day < 10 ? "0" : "") + day;
         let month = date.getMonth() + 1;
@@ -38,6 +42,7 @@ function googleChart() {
         return dateToString;
     }
 
+    //formate to date format e.g. Mon Jun 01 2015 00:00:00 GMT+0100 (BST) 
     function datetry(date) {
         var parts = date.split('-');
         var mydate = new Date(parts[0], parts[1] - 1, parts[2]);
@@ -49,33 +54,31 @@ function googleChart() {
     //params
     let file = $('#files').val();
     let location = $('#files option:selected').text();
-//    let dateObj = new Date($('#dates').val());
     let date = $('#dates').val();
     let dateCurrent = datetry(date);
     let dateCurrentString = dateFormat(dateCurrent);
-    dateCurrent.setDate(dateCurrent.getDate() + 1);
-//    let dateNextString = dateFormat(dateCurrent);
-
-//    console.log("current " + dateCurrentString);
-//    console.log("next " + dateNextString);
 
     let time = $('#time').html();
-//    console.log(time);
 
     let params = "?file=" + file + "&date=" + dateCurrentString + "&time=" + time;
+
+    //http://api.jquery.com/jQuery.ajax/
+    //https://www.w3schools.com/jquery/jquery_ajax_intro.asp
+    //send data into server(php), the data can be process without reloading the page
+    //in this case, the date select can shows the updating in the chart.
     let json = $.ajax({
         url: url + params,
         dataType: "json",
         async: false
     }).responseText;
 
-    //google maps
-//    console.log(json);
     var data = new google.visualization.DataTable(json);
     var dataView = new google.visualization.DataView(data);
+    //costume google chart
     dataView.setColumns([
         0, 1,
         {
+            //colour change
             calc: function (data, row) {
                 var val = data.getValue(row, 1);
                 if (val >= 0 && val <= 67) {
@@ -114,13 +117,14 @@ function googleChart() {
             role: 'style'
         },
         {
+            //tooltip
             calc: function (data, row) {
                 let date = new Date(data.getValue(row, 0));
                 let dateInFormate = (date.getDate() < 10 ? "0" : "") + date.getDate() + "/"
                         + (date.getMonth() < 10 ? "0" : "") + date.getMonth() + "/"
                         + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes()
                         + ":" + date.getSeconds();
-                return dateInFormate + "\nNO2 Value: " + data.getValue(row,1);
+                return dateInFormate + "\nNO2 Value: " + data.getValue(row, 1);
 
             },
             type: 'string',
@@ -137,7 +141,6 @@ function googleChart() {
             }
         },
         vAxis: {title: 'NO2'},
-//        curveType: 'function',
         legend: {position: 'right'},
     };
 

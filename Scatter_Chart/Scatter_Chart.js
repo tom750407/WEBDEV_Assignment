@@ -4,10 +4,16 @@
  * and open the template in the editor.
  */
 
+/*
+ * Task require to show a years worth of data from a specific station at a certain time of day
+ * But in this case i've extend it with some user input with the year selection, time slider and location selection
+ * Code is similar to other chart with some chart costume
+ */
+
+//when document is ready load google chart api and draw the graph
 $(document).ready(function () {
     google.charts.load('current', {packages: ['corechart']});
     google.charts.setOnLoadCallback(googleChart);
-
     displayTime();
 });
 
@@ -15,6 +21,7 @@ function displayTime() {
     let slider = document.getElementById("times");
     let output = document.getElementById("time");
     let minutes = (slider.value - Math.floor(slider.value));
+
     minutes = minutes * 60;
     if (minutes === 0) {
         minutes = "00";
@@ -22,7 +29,6 @@ function displayTime() {
 
     //display initial output
     output.innerHTML = (slider.value < 10 ? "0" : "") + Math.floor(slider.value) + ":" + minutes + ":00";
-
     googleChart();
 }
 
@@ -33,24 +39,25 @@ function googleChart() {
     let file = $('#files').val();
     let location = $('#files option:selected').text();
     let date = $('#dates').val();
-//    let time = document.getElementById("time").innerHTML;
     let time = $('#time').html();
-    console.log(time);
 
     let params = "?file=" + file + "&date=" + date + "&time=" + time;
+
+    //send data into server(php), the data can be process without reloading the page
+    //in this case, the date select can shows the updating in the chart.
     let json = $.ajax({
         url: url + params,
         dataType: "json",
         async: false
     }).responseText;
 
-    //google maps
-    console.log(json);
     var data = new google.visualization.DataTable(json);
     var dataView = new google.visualization.DataView(data);
+    //costume google chart
     dataView.setColumns([
         0, 1,
         {
+            //colour change
             calc: function (data, row) {
                 var val = data.getValue(row, 1);
                 if (val >= 0 && val <= 67) {
@@ -89,10 +96,11 @@ function googleChart() {
             role: 'style'
         },
         {
+            //tooltip
             calc: function (data, row) {
                 let date = new Date(data.getValue(row, 0));
                 let dateInFormate = (date.getDate() < 10 ? "0" : "") + date.getDate() + "/"
-                        + (date.getMonth() < 10 ? "0" : "") + date.getMonth() + "/"
+                        + (date.getMonth() < 10 ? "0" : "") + (date.getMonth() + 1) + "/"
                         + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes()
                         + ":" + date.getSeconds();
                 return dateInFormate + "\nNO2 Value: " + data.getValue(row, 1);
