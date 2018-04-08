@@ -51,7 +51,6 @@ function createJSONString($inputFilePath, $selectedTime, $selectedDate) {
 
         $temp[] = array("v" => $dateFormat); //add date
         $temp[] = array("v" => (int) $no2val); //add no2
-        $temp[] = array("v" => selectColor($no2val)); //add colour
 
         $rows[] = array("c" => $temp); //add row to new column
     }

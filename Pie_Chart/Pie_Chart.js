@@ -70,7 +70,7 @@ function googleChart() {
         0, 1,
         {
             calc: function (data, row) {
-                return data.getValue(row, 0).toLowerCase() + "\nNO2 Value: " + data.getValue(row, 1);
+                return data.getValue(row, 0).toLowerCase() + '\nNO2 Value: ' + data.getValue(row, 1);
             },
             type: 'string',
             role: 'tooltip'
@@ -79,7 +79,7 @@ function googleChart() {
     var options = {
         title: 'Air Quality:',
         is3D: true,
-
+        pieSliceText:'value'
     };
     let chart = new google.visualization.PieChart(document.getElementById("chart"));
     chart.draw(dataView, options);
